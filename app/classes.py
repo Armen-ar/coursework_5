@@ -14,9 +14,9 @@ class UnitClass:
     skill: Skill
 
 
-WarriorClass = UnitClass('Армен', 100.0, 70.0, 5.0, 3.0, 2.0, '') # TODO Инициализируем экземпляр класса UnitClass и присваиваем ему необходимые значения аттрибуотов
+WarriorClass = UnitClass('Воин', 60.0, 30.0, 0.8, 0.9, 1.2, {'Свирепый пинок': {'stamina': 6, 'damage': 12}})
 
-ThiefClass = UnitClass('Давид', 100.0, 70.0, 5.0, 3.0, 2.0, '') # TODO действуем так же как и с войном
+ThiefClass = UnitClass('Вор', 50.0, 25.0, 1.5, 1.2, 1.0, {'Мощный укол': {'stamina': 5, 'damage': 15}})
 
 unit_classes = {
     ThiefClass.name: ThiefClass,
