@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from unit import BaseUnit
 
+
 class Skill(ABC):
     """
     Базовый класс умения
@@ -58,6 +59,7 @@ class FuryPunch(Skill):
         # TODO уменьшение здоровья цели.
         # TODO результат применения возвращаем строкой
         pass
+
 
 class HardShot(Skill):
     name = ...

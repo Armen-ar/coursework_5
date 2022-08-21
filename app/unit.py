@@ -10,6 +10,7 @@ class BaseUnit(ABC):
     """
     Базовый класс юнита
     """
+
     def __init__(self, name: str, unit_class: UnitClass):
         """
         При инициализации класса Unit используем свойства класса UnitClass
@@ -24,7 +25,7 @@ class BaseUnit(ABC):
 
     @property
     def health_points(self):
-        return # TODO возвращаем аттрибут hp в красивом виде
+        return  # TODO возвращаем аттрибут hp в красивом виде
 
     @property
     def stamina_points(self):
@@ -88,6 +89,7 @@ class PlayerUnit(BaseUnit):
         f"{self.name} используя {self.weapon.name} наносит удар, но {target.armor.name} cоперника его останавливает."
         f"{self.name} попытался использовать {self.weapon.name}, но у него не хватило выносливости."
 
+
 class EnemyUnit(BaseUnit):
 
     def hit(self, target: BaseUnit) -> str:
@@ -103,5 +105,3 @@ class EnemyUnit(BaseUnit):
         f"{self.name} используя {self.weapon.name} пробивает {target.armor.name} и наносит Вам {damage} урона."
         f"{self.name} используя {self.weapon.name} наносит удар, но Ваш(а) {target.armor.name} его останавливает."
         f"{self.name} попытался использовать {self.weapon.name}, но у него не хватило выносливости."
-
-
