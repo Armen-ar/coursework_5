@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 
 from app.base import Arena
 from app.unit import BaseUnit
@@ -10,20 +10,18 @@ heroes = {
     "enemy": BaseUnit
 }
 
-arena = Arena()  # TODO инициализируем класс арены
+arena = Arena()
 
 
 @app.route("/")
 def menu_page():
-    # TODO рендерим главное меню (шаблон index.html)
-    pass
+    return render_template("index.html")
 
 
 @app.route("/fight/")
 def start_fight():
-    # TODO выполняем функцию start_game экземпляра класса арена и передаем ему необходимые аргументы
-    # TODO рендерим экран боя (шаблон fight.html)
-    pass
+    arena.start_game(player=heroes["player"], enemy=heroes["enemy"])
+    return render_template("fight.html")
 
 
 @app.route("/fight/hit")

@@ -25,35 +25,61 @@ class BaseUnit(ABC):
 
     @property
     def health_points(self):
-        return  # TODO возвращаем аттрибут hp в красивом виде
+        """
+        Метод возвращает очки здоровья,
+        округлённые до одного знака после точки
+        """
+        return round(self.hp, 1)
 
     @property
     def stamina_points(self):
-        return  # TODO возвращаем аттрибут hp в красивом виде
+        """
+        Метод возвращает очки выносливости,
+        округлённые до одного знака после точки
+        """
+        return round(self.stamina, 1)
 
     def equip_weapon(self, weapon: Weapon):
-        # TODO присваиваем нашему герою новое оружие
+        """
+        Метод присваивает оружием героя и возвращает
+        имя героя и наименование присвоенного оружия
+        """
+        self.weapon = weapon
         return f"{self.name} экипирован оружием {self.weapon.name}"
 
     def equip_armor(self, armor: Armor):
-        # TODO одеваем новую броню
-        return f"{self.name} экипирован броней {self.weapon.name}"
+        """
+        Метод присваивает бронёй героя и возвращает
+        имя героя и наименование присвоенной брони
+        """
+        self.armor = armor
+        return f"{self.name} экипирован броней {self.armor.name}"
 
     def _count_damage(self, target: BaseUnit) -> int:
-        # TODO Эта функция должна содержать:
-        #  логику расчета урона игрока
-        #  логику расчета брони цели
-        #  здесь же происходит уменьшение выносливости атакующего при ударе
-        #  и уменьшение выносливости защищающегося при использовании брони
-        #  если у защищающегося нехватает выносливости - его броня игнорируется
-        #  после всех расчетов цель получает урон - target.get_damage(damage)
-        #  и возвращаем предполагаемый урон для последующего вывода пользователю в текстовом виде
-        return damage
+        """
+        Метод рассчитывает урон игрока и брони цели, уменьшает
+        выносливость атакующего при ударе, уменьшает броню защищающего.
+        При недостаточности выносливости у защищающего игнорируется броня
+        и цель получает урон и метод возвращает...............
+        """
+        self.stamina -= self.weapon.stamina_per_hit * self.unit_class.stamina
+        damage = self.weapon.damage * self.unit_class.attack
+
+        # Проверка достаточности выносливости у защищающегося
+        if target.stamina > target.armor.stamina_per_turn * target.unit_class.stamina:
+            target.stamina -= target.armor.stamina_per_turn * target.unit_class.stamina
+            damage -= target.armor.defence * target.unit_class.armor
+        return target.get_damage(damage)
 
     def get_damage(self, damage: int) -> Optional[int]:
-        # TODO получение урона целью
-        #      присваиваем новое значение для аттрибута self.hp
-        pass
+        """
+        Метод проверяет, что ущерб больше нуля то очки здоровья
+        уменьшает на величину ущерба и возвращает ущерб, иначе нуль
+        """
+        if damage > 0:
+            self.hp -= damage
+            return damage
+        return 0
 
     @abstractmethod
     def hit(self, target: BaseUnit) -> str:
